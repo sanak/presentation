@@ -53,8 +53,7 @@
 						<li>Self-introduction</li> <!-- 2min -->
 						<li>Background</li> <!-- 3min -->
 						<li>Draggable routing frameworks</li> <!-- 2min -->
-						<li>Leaflet Routing Machine (LRM)</li> <!-- 2min -->
-						<li>LRM pgRouting plugin</li> <!-- 6min -->
+						<li>Leaflet Routing Machine (LRM) pgRouting plugin</li> <!-- 6min -->
 						<!-- <li>TODO: How it works?</li> -->
 						<!-- <li>TOOD: Try to develop OL3 custom interaction</li> -->
 						<!-- <li>TODO: Try to develop QGIS Python plugin</li> -->
@@ -215,24 +214,85 @@
 					</section>
 					<section>
 						<h3>Google Maps Directions API</h3>
+						<ul>
+							<li>Link: <a href="https://maps.google.com/">https://maps.google.com/</a></li>
+							<li>Documentation:<br>
+								<span style="font-size:20pt"><a href="https://developers.google.com/maps/documentation/directions/intro">https://developers.google.com/maps/documentation/directions/intro</a></span>
+							</li>
+							<li>Example:<br>
+								<span style="font-size:20pt"><a href="https://www.google.co.jp/maps/dir/34.9444053,135.7026846/34.9445439,135.7039386/@34.9443852,135.703326,18.84z/data=!4m9!4m8!1m5!3m4!1m2!1d135.702861!2d34.9449064!3s0x6001043ac4aeca09:0xbba5719a915920dc!1m0!3e2">Muko-city, Kyoto-prefecture, Japan (135.703151640629,34.9447239682395)</a></span>
+							</li>
+							<li>pros:
+								<ul>
+									<li>Most well known framework</li>
+								</ul>
+							</li>
+							<li>cons:
+								<ul>
+									<li>Closed source</li>
+									<li>Need to paid money for commercial use</li>
+									<!-- <li>Can't use your own network data</li> -->
+								</ul>
+							</li>
+						</ul>
 					</section>
 					<section>
 						<h3>Open Source Routing Machine (OSRM)</h3>
+						<ul>
+							<li>Link: <a href="http://map.project-osrm.org/">http://map.project-osrm.org/</a></li>
+							<!-- <li>Project: <a href="http://project-osrm.org/">http://project-osrm.org/</a></li> -->
+							<li>Source code/Documentation:<br>
+								<span style="font-size:20pt"><a href="https://github.com/Project-OSRM/osrm-backend">https://github.com/Project-OSRM/osrm-backend</a></span>
+								<span style="font-size:20pt"><a href="https://github.com/Project-OSRM/osrm-frontend">https://github.com/Project-OSRM/osrm-frontend</a></span>
+							<li>Example:<br>
+								<span style="font-size:20pt"><a href="http://map.project-osrm.org/?hl=ja&loc=34.944489,135.702911&loc=34.944904,135.702850&loc=34.944530,135.703583&z=18&center=34.944635,135.702205&alt=0&df=0&re=0&ly=-1171809665">Muko-city, Kyoto-prefecture, Japan (135.703151640629,34.9447239682395)</a></span>
+							</li>
+							<li>pros:
+								<ul>
+									<li>Well known framework</li>
+									<li>Open source</li>
+								</ul>
+							</li>
+							<li>cons:
+								<ul>
+									<li>License is strict (AGPL)</li>
+									<!-- <li>Can't use your own network data (except OSM)</li> -->
+								</ul>
+							</li>
+						</ul>
 					</section>
 					<section>
 						<h3>Leaflet Routing Machine (LRM)</h3>
+						<ul>
+							<li>Project: <a href="http://www.liedman.net/leaflet-routing-machine/">http://www.liedman.net/leaflet-routing-machine/</a></li>
+							<li>Source code: <a href="https://github.com/perliedman/leaflet-routing-machine"></a>https://github.com/perliedman/leaflet-routing-machine</li>
+							<li>pros:
+								<ul>
+									<li>Open source</li>
+									<li>License is not strict (ICS)</li>
+									<li>Several routing engines support: OSRM (builtin default), GraphHopper, MapBox Directions API, Mapzen Valhalla, ...</li>
+								</ul>
+							</li>
+							<li>cons:
+								<ul>
+									<li>pgRouting with own network data is not supported</li>
+								</ul>
+							</li>
+						</ul>
 					</section>
 				</section>
 
-				<!-- Leaflet Routing Machine (LRM) -->
+				<!-- Leaflet Routing Machine (LRM) pgRouting plugin -->
 				<section>
-					<h2>Leaflet Routing Machine (LRM)</h2>
-					<ul>
-						<li>Default OSRM builtin</li>
-						<li>GraphHopper plugin</li>
-						<li>MapBox plugin</li>
-						<li>Others</li>
-					</ul>
+					<section>
+						<h2>Leaflet Routing Machine (LRM) pgRouting plugin</h2>
+						<ul>
+							<li>Quick grance at LRM plugin interface</li>
+							<li>Server side design</li>
+							<li>Client side processing</li>
+							<li>Demo</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
