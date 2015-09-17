@@ -51,7 +51,7 @@
 					<h2>Agenda</h2>
 					<ul>
 						<li>Self-introduction</li> <!-- 2min -->
-						<li>Motivation</li> <!-- 2min -->
+						<li>Background</li> <!-- 3min -->
 						<li>Draggable routing frameworks</li> <!-- 2min -->
 						<li>Leaflet Routing Machine (LRM)</li> <!-- 2min -->
 						<li>LRM pgRouting plugin</li> <!-- 6min -->
@@ -71,37 +71,41 @@
 						<ul>
 							<li>Developer, Georepublic Japan</li>
 							<li><a href="https://github.com/pgRouting/pgrouting">pgRouting</a> contributor
+								<!--
 								<ul>
 									<li>Initial Windows binary (MinGW) creator</li>
 									<li>Fixed/Improved Alpha Shape function</li>
-									<li>Multi OS (Mac/Win/Linux) build tester :-)</li>
+									<li>Multi OS (Mac/Win/Linux) build tester</li>
 								</ul>
+								-->
 							</li>
 							<li>QGIS <a href="https://plugins.qgis.org/plugins/pgRoutingLayer/">pgRoutingLayer</a> plugin contributor
+								<!--
 								<ul>
 									<li>Supported pgRouting v2.0 functions</li>
 									<li>Supporting pgRouting v2.1 functions is coming soon!</li>
 								</ul>
+								-->
 							</li>
 						</ul>
 					</section>
 					<section>
-						<h2>pgRouting initial Windows binary (MinGW) creator</h2>
+						<h3>pgRouting initial Windows binary (MinGW) creator</h3>
 						<img width="750" data-src="./draggable_pgrouting/old_windows_binaries.png">
-						<a href="http://pgrouting.org/download.html">http://pgrouting.org/download.html</a>
+						<span style="font-size:20pt"><a href="http://pgrouting.org/download.html">http://pgrouting.org/download.html</a></span>
 					</section>
 					<section>
-						<h2>Fixed/Improved pgRouting Alpha Shape function</h2>
+						<h3>Fixed/Improved pgRouting Alpha Shape function</h3>
 						<img width="650" data-src="./draggable_pgrouting/fix_alpha_shape.png">
-						<a href="https://github.com/pgRouting/pgrouting/pull/236">https://github.com/pgRouting/pgrouting/pull/236</a>
-						<a href="https://github.com/pgRouting/pgrouting/pull/237">https://github.com/pgRouting/pgrouting/pull/237</a>
+						<span style="font-size:20pt"><a href="https://github.com/pgRouting/pgrouting/pull/236">https://github.com/pgRouting/pgrouting/pull/236</a></span>
+						<span style="font-size:20pt"><a href="https://github.com/pgRouting/pgrouting/pull/237">https://github.com/pgRouting/pgrouting/pull/237</a></span>
 					</section>
 					<section>
-						<h2>pgRouting multi OS (Mac/Win/Linux) build tester</h2>
+						<h3>pgRouting multi OS (Mac/Win/Linux) build tester</h3>
 						<ul>
 							<li>Micrsoft Windows 7 SP1 x64 (Desktop)
 								<ul>
-									<li>Microsoft Visual Studio 2008/2010/2013</li>
+									<li>Microsoft Visual Studio 2008/2010/2013 (<a href="https://github.com/sanak/pgrouting4w/tree/master-msvc">pgrouting4w/master-msvc</a>)</li>
 									<li>MinGW GCC4.9 (Regina's build box)</li>
 								</ul>
 							</li>
@@ -118,57 +122,117 @@
 						</ul>
 					</section>
 					<section>
-						<h2>QGIS pgRoutingLayer plugin contributor</h2>
-						<img width="650" data-src="./draggable_pgrouting/pgRoutingLayer_site.png">
-						<a href="https://plugins.qgis.org/plugins/pgRoutingLayer/">https://plugins.qgis.org/plugins/pgRoutingLayer/</a>
-						<a href="https://github.com/anitagraser/pgRoutingLayer">https://github.com/anitagraser/pgRoutingLayer</a>
+						<h3>QGIS pgRoutingLayer plugin contributor</h3>
+						<img width="600" data-src="./draggable_pgrouting/pgRoutingLayer_site.png">
+						<span style="font-size:20pt"><a href="https://plugins.qgis.org/plugins/pgRoutingLayer/">https://plugins.qgis.org/plugins/pgRoutingLayer/</a></span>
+						<span style="font-size:20pt"><a href="https://github.com/anitagraser/pgRoutingLayer">https://github.com/anitagraser/pgRoutingLayer</a></span>
 					</section>
 					<section>
-						<h2>pgRoutingLayer plugin demo</h2>
+						<h3>pgRoutingLayer plugin demo</h3>
 					</section>
 				</section>
 
-				<!-- Motivation -->
+				<!-- Background -->
 				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
+					<section>
+						<h2>Background</h2>
+						<ul>
+							<li>Specific pgRouting use case
+								<ul>
+									<li>All possible routes</li>
+									<li>Round trip case</li>
+									<li>Parallel edges case</li>
+								</ul>
+							</li>
+							<li>K shortest path (KSP) limitations</li>
+							<li>Necessity of draggable routing</li>
+						</ul>
+					</section>
+					<section>
+						<h3>All possible routes</h3>
+						<img width="600" data-src="./draggable_pgrouting/self_avoiding_walk.png">
+						<ul>
+							<li>Known as "Self-avoiding walk"<br>
+								<span style="font-size:20pt"><a href="https://en.wikipedia.org/wiki/Self-avoiding_walk">https://en.wikipedia.org/wiki/Self-avoiding_walk</a></span>
+							</li>
+							<li>Combinatorial explosion<br>
+								<span style="font-size:20pt"><a href="https://www.youtube.com/watch?v=Q4gTV4r0zRs">https://www.youtube.com/watch?v=Q4gTV4r0zRs</a></span>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Round trip case</h3>
+						<img width="600" data-src="./draggable_pgrouting/round_trip.png"><br>
+						<ul>
+							<li>The combinatorial explosion become more worse...</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Same source/target parallel edges case</h3>
+						<img width="300" data-src="./draggable_pgrouting/parallelImage.png"><br>
+						<ul>
+							<li>pgRouting old issue
+								<span style="font-size:20pt"><a href="ftp://ftp.remotesensing.org/pgrouting/forum/pgrouting.postlbs.org/ticket/110.html">ftp://ftp.remotesensing.org/pgrouting/forum/pgrouting.postlbs.org/ticket/110.html</a></span>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>K shortest path (KSP) limitations</h3>
+						<img width="146" data-src="./draggable_pgrouting/ksp.png"><br>
+						<ul>
+							<li>KSP returns 1st, 2nd, ..., Kth "alternative" routes</li>
+							<li>pgr_ksp - K-Shortest Path
+								<span style="font-size:20pt"><a href="https://en.wikipedia.org/wiki/K_shortest_path_routing">http://docs.pgrouting.org/2.1/src/ksp/doc/ksp_v3.html</a></span>
+							</li>
+							<li>KSP is not for "all possible" routes...</li>
+							<li>KSP doesn't support "round trip" case</li>
+							<li>To support parallel edges case, post processing becomes necessary<br>
+								<span style="font-size:20pt"><a href="http://docs.pgrouting.org/2.1/doc/src/recipes/parallel_handling.html">http://docs.pgrouting.org/2.1/doc/src/recipes/parallel_handling.html</a></span>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Necessity of draggable routing</h3>
+						<img width="434" data-src="./draggable_pgrouting/draggable_routing.png"><br>
+						<ul>
+							<li>After selecting "start"/"end" points, then drag a point on intermediate edges to on another edge</li>
+							<li>Just do S=>1, 1=>2, 2=>E routing</li>
+							<li>Supporting "round trip" case is possible</li>
+							<li>To support parallel edges case, edge based routing is necessary, and "pgr_trsp" supports it</li>
+						</ul>
+					</section>
 				</section>
 
+				<!-- Draggable routing frameworks -->
 				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
+					<section>
+						<h2>Draggable routing frameworks</h2>
+						<ul>
+							<li>Google Maps Directions API</li>
+							<li>Open Source Routing Machine (OSRM)</li>
+							<li>Leaflet Routing Machine (LRM)</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Google Maps Directions API</h3>
+					</section>
+					<section>
+						<h3>Open Source Routing Machine (OSRM)</h3>
+					</section>
+					<section>
+						<h3>Leaflet Routing Machine (LRM)</h3>
+					</section>
 				</section>
 
+				<!-- Leaflet Routing Machine (LRM) -->
 				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
-
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-
-						```
-						<section data-markdown>
-						  ## Markdown support
-
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
+					<h2>Leaflet Routing Machine (LRM)</h2>
+					<ul>
+						<li>Default OSRM builtin</li>
+						<li>GraphHopper plugin</li>
+						<li>MapBox plugin</li>
+						<li>Others</li>
+					</ul>
 				</section>
 
 				<section>
