@@ -114,13 +114,13 @@
 							</li>
 						</ul>
 					</section>
-					-->
 					<section>
 						<h3>QGIS pgRoutingLayer plugin contributor</h3>
 						<img width="600" data-src="./draggable_pgrouting/pgRoutingLayer_site.png">
 						<span style="font-size:20pt"><a href="https://plugins.qgis.org/plugins/pgRoutingLayer/">https://plugins.qgis.org/plugins/pgRoutingLayer/</a></span>
 						<span style="font-size:20pt"><a href="https://github.com/anitagraser/pgRoutingLayer">https://github.com/anitagraser/pgRoutingLayer</a></span>
 					</section>
+					-->
 					<section>
 						<h3>pgRoutingLayer plugin demo</h3>
 					</section>
@@ -158,7 +158,7 @@
 						<h3>Round trip case</h3>
 						<img width="600" data-src="./draggable_pgrouting/round_trip.png"><br>
 						<ul>
-							<li>The combinatorial explosion become more worse...</li>
+							<li>The combinatorial explosion becomes worse...</li>
 						</ul>
 					</section>
 					<section>
@@ -178,14 +178,12 @@
 						<h3>K shortest path (KSP) limitations</h3>
 						<img width="146" data-src="./draggable_pgrouting/ksp.png"><br>
 						<ul>
-							<li>KSP returns 1st, 2nd, ..., Kth "alternative" routes</li>
-							<li>pgr_ksp - K-Shortest Path
-								<span style="font-size:20pt"><a href="https://en.wikipedia.org/wiki/K_shortest_path_routing">http://docs.pgrouting.org/2.1/src/ksp/doc/ksp_v3.html</a></span>
+							<li>KSP returns 1st, 2nd, ..., Kth shortest "alternative" routes</li>
+							<li><a href="https://en.wikipedia.org/wiki/K_shortest_path_routing">pgr_ksp - K-Shortest Path</a>
 							</li>
 							<li>KSP is not for "all possible" routes...</li>
 							<li>KSP doesn't support "round trip" case</li>
-							<li>To support parallel edges case, post processing becomes necessary<br>
-								<span style="font-size:20pt"><a href="http://docs.pgrouting.org/2.1/doc/src/recipes/parallel_handling.html">http://docs.pgrouting.org/2.1/doc/src/recipes/parallel_handling.html</a></span>
+							<li>To support parallel edges case, post processing becomes necessary <a href="http://docs.pgrouting.org/2.1/doc/src/recipes/parallel_handling.html">link</a>
 							</li>
 						</ul>
 					</section>
@@ -290,14 +288,14 @@
 					<section>
 						<h2>Leaflet Routing Machine (LRM) pgRouting plugin</h2>
 						<ul>
-							<li>Quick grance at LRM plugin interface</li>
+							<li>Quick glance at LRM plugin interface</li>
 							<li>Server side design</li>
 							<li>Client side processing</li>
 							<li>Demo</li>
 						</ul>
 					</section>
 					<section>
-						<h3>Quick grance at LRM plugin interface 1/2</h3>
+						<h3>Quick glance at LRM plugin interface 1/2</h3>
 						<ul>
 							<li>Tutorial / GraphHopper, Mapbox, Valhalla and other routing software / Using other routers:<br>
 								<span style="font-size:20pt"><a href="http://www.liedman.net/leaflet-routing-machine/tutorials/alternative-routers/">http://www.liedman.net/leaflet-routing-machine/tutorials/alternative-routers/</a></span>
@@ -312,7 +310,7 @@
 						</code></pre>
 					</section>
 					<section>
-						<h3>Quick grance at LRM plugin interface 2/2</h3>
+						<h3>Quick glance at LRM plugin interface 2/2</h3>
 						<ul>
 							<li>Get response from the server</li>
 							<li>Parse the results, then format and pass it to LRM <a href="http://www.liedman.net/leaflet-routing-machine/api/#iroute">IRoute</a> interface object<br>
@@ -325,7 +323,7 @@
 					<section>
 						<h3>Server side design 1/3</h3>
 						<ul>
-							<li>To make it simple, decided to use GeoServer WFS layer (SQL View) + PL/pgSQL wrapper function</li>
+							<li>To make it simple, use GeoServer WFS layer (SQL View) + PL/pgSQL wrapper function</li>
 							<li>PL/pgSQL wrapper function parses input waypoints, then call "pgr_trsp" function for each waypoints</li>
 							<li>GeoServer doesn't support multiple geometry columns' layer, so, designed that PL/pgSQL returns merged TRSP result edges with "point type" attribute</li>
 						</ul>
@@ -349,7 +347,7 @@
 								<tr>
 								<tr>
 									<td>2</td>
-									<td>Edge end node is target(destication) point</td>
+									<td>Edge end node is target(destination) point</td>
 								<tr>
 								<tr>
 									<td>4</td>
