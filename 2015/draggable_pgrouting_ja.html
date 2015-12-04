@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>pgRoutingを用いたクライアント側でドラッグ可能なルート選択についての調査</title>
+
+		<meta name="description" content="Research client side draggable route selection with pgRouting">
+		<meta name="author" content="Georepublic Japan 長瀬 興">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="../css/reveal.css">
+		<link rel="stylesheet" href="../css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../css/print/pdf.css' : '../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h2>pgRoutingを用いたクライアント側でドラッグ可能なルート選択についての調査</h2>
+					<p>
+						<small><a href="https://georepublic.info">Georepublic Japan</a> <a href="https://github.com/sanak">長瀬 興</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>アジェンダ</h2>
+					<ul>
+						<li>自己紹介</li> <!-- 2min -->
+						<li>背景</li> <!-- 3min -->
+						<li>ドラッグ可能なルート検索フレームワーク</li> <!-- 2min -->
+						<li>Leaflet Routing Machine (LRM) pgRouting プラグイン</li> <!-- 6min -->
+						<li>今後の課題</li> <!-- 2min -->
+					</ul>
+				</section>
+
+				<!-- Self-introduction -->
+				<section>
+					<section>
+						<img width="150" height="150" data-src="./draggable_pgrouting/nagase.jpg">
+						<img width="150" height="150" data-src="./draggable_pgrouting/sanak.jpg">
+						<h2>長瀬 興 (<a href="https://github.com/sanak">sanak</a>)</h2>
+						<ul>
+							<li>Georepublic Japan, 開発</li>
+							<li><a href="https://github.com/pgRouting/pgrouting">pgRouting</a> のコントリビュータ
+								<ul>
+									<li>初期の Windows バイナリ (MinGW版) 作成</li>
+									<li>Alpha Shape の修正/改良</li>
+									<li>マルチ OS (Mac/Win/Linux) のビルドテスト</li>
+								</ul>
+							</li>
+							<li>QGIS <a href="https://plugins.qgis.org/plugins/pgRoutingLayer/">pgRoutingLayer</a> プラグインのコントリビュータ
+								<ul>
+									<li>pgRouting v2.0 の対応</li>
+									<li>pgRouting v2.1 の対応は今しばらくお待ちを...</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>pgRouting の初期の Windows バイナリ (MinGW版) 作成</h3>
+						<img width="750" data-src="./draggable_pgrouting/old_windows_binaries.png">
+						<span style="font-size:20pt"><a href="http://pgrouting.org/download.html">http://pgrouting.org/download.html</a></span>
+					</section>
+					<section>
+						<h3>pgRouting の Alpha Shape の修正/改良</h3>
+						<img width="650" data-src="./draggable_pgrouting/fix_alpha_shape.png">
+						<span style="font-size:20pt"><a href="https://github.com/pgRouting/pgrouting/pull/236">https://github.com/pgRouting/pgrouting/pull/236</a></span>
+						<span style="font-size:20pt"><a href="https://github.com/pgRouting/pgrouting/pull/237">https://github.com/pgRouting/pgrouting/pull/237</a></span>
+					</section>
+					<section>
+						<h3>pgRouting のマルチ OS (Mac/Win/Linux) ビルドテスト</h3>
+						<ul>
+							<li>Micrsoft Windows 7 SP1 x64 (デスクトップ)
+								<ul>
+									<li>Microsoft Visual Studio 2008/2010/2013 (<a href="https://github.com/sanak/pgrouting4w/tree/master-msvc">pgrouting4w/master-msvc</a>)</li>
+									<li>MinGW GCC4.9 (Reginaさんのビルドボックス使用)</li>
+								</ul>
+							</li>
+							<li>Mac OSX Yosemite (ノートPC)
+								<ul>
+									<li>Xcode 6.4 - Clang</li>
+								</ul>
+							</li>
+							<li>Ubuntu >= 12.04 (VirtualBox)
+								<ul>
+									<li>GCC 4.x</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>QGIS pgRoutingLayer プラグインのコントリビュータ</h3>
+						<img width="600" data-src="./draggable_pgrouting/pgRoutingLayer_site.png">
+						<span style="font-size:20pt"><a href="https://plugins.qgis.org/plugins/pgRoutingLayer/">https://plugins.qgis.org/plugins/pgRoutingLayer/</a></span>
+						<span style="font-size:20pt"><a href="https://github.com/anitagraser/pgRoutingLayer">https://github.com/anitagraser/pgRoutingLayer</a></span>
+					</section>
+					<section>
+						<h3>QGIS pgRoutingLayer プラグイン デモ</h3>
+					</section>
+				</section>
+
+				<!-- Background -->
+				<section>
+					<section>
+						<h2>背景</h2>
+						<ul>
+							<li>特殊な pgRouting のユースケースがあった
+								<ul>
+									<li>全ての可能なルートの対応</li>
+									<li>往復の対応</li>
+									<li>エッジが並行している場合の対応</li>
+								</ul>
+							</li>
+							<li>K 最短経路 (KSP) の制限</li>
+							<li>ドラッグ可能なルート検索の必要性</li>
+						</ul>
+					</section>
+					<section>
+						<h3>全ての可能なルートの対応</h3>
+						<img width="600" data-src="./draggable_pgrouting/self_avoiding_walk.png">
+						<ul>
+							<li>"自己回避歩行"として知られている<br>
+								<span style="font-size:20pt"><a href="https://en.wikipedia.org/wiki/Self-avoiding_walk">https://en.wikipedia.org/wiki/Self-avoiding_walk</a></span>
+							</li>
+							<li>組み合わせ爆発<br>
+								<span style="font-size:20pt"><a href="https://www.youtube.com/watch?v=Q4gTV4r0zRs">https://www.youtube.com/watch?v=Q4gTV4r0zRs</a></span>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>往復の対応</h3>
+						<img width="600" data-src="./draggable_pgrouting/round_trip.png"><br>
+						<ul>
+							<li>組み合わせ爆発はさらに悲惨な状況に...</li>
+						</ul>
+					</section>
+					<section>
+						<h3>同一の始点/終点の並行エッジの対応</h3>
+						<!-- TODO: Replace the picture to more readable one -->
+						<img width="300" data-src="./draggable_pgrouting/parallelImage.png"><br>
+						<ul>
+							<li>pgRouting で古くからある問題:<br>
+								<span style="font-size:20pt"><a href="ftp://ftp.remotesensing.org/pgrouting/forum/pgrouting.postlbs.org/ticket/110.html">ftp://ftp.remotesensing.org/pgrouting/forum/pgrouting.postlbs.org/ticket/110.html</a></span>
+							</li>
+							<li>最近の議論:<br>
+								<span style="font-size:20pt"><a href="https://github.com/pgRouting/pgrouting/issues/285">https://github.com/pgRouting/pgrouting/issues/285</a></span>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>K 最短経路 (KSP) の制限</h3>
+						<img width="146" data-src="./draggable_pgrouting/ksp.png"><br>
+						<ul>
+							<li>KSP は 1番目, 2番目, ..., K番目の"代替の"最短経路を返す</li>
+							<li><a href="https://en.wikipedia.org/wiki/K_shortest_path_routing">pgr_ksp - K-Shortest Path</a>
+							</li>
+							<li>KSP は"全ての可能な"ルートを返すためのものではない...</li>
+							<li>KSP は"往復"の場合をサポートしていない</li>
+							<li>並行エッジに対応するためには、特別な後処理が必要になる => <a href="http://docs.pgrouting.org/2.1/doc/src/recipes/parallel_handling.html">リンク</a>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>ドラッグ可能なルート検索の必要性</h3>
+						<img width="434" data-src="./draggable_pgrouting/draggable_routing.png"><br>
+						<ul>
+							<li>"始点"/"終点"を選択してから、中間のエッジ上の点を別のエッジにドラッグする</li>
+							<li>始点=>1点目, 1点目=>2点目, 2点目=>終点 のルート検索を行う</li>
+							<li>"往復"の対応が可能</li>
+							<li>並行エッジの対応のためには、エッジベースのルート検索が必要となるが、"pgr_trsp"でサポート済み</li>
+						</ul>
+					</section>
+				</section>
+
+				<!-- Draggable routing frameworks -->
+				<section>
+					<section>
+						<h2>ドラッグ可能なルート検索フレームワーク</h2>
+						<ul>
+							<li>Google Maps Directions API</li>
+							<li>Open Source Routing Machine (OSRM)</li>
+							<li>Leaflet Routing Machine (LRM)</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Google Maps Directions API</h3>
+						<ul>
+							<li>リンク: <a href="https://maps.google.com/">https://maps.google.com/</a></li>
+							<li>ドキュメント:<br>
+								<span style="font-size:20pt"><a href="https://developers.google.com/maps/documentation/directions/intro">https://developers.google.com/maps/documentation/directions/intro</a></span>
+							</li>
+							<li>サンプル:<br>
+								<span style="font-size:20pt"><a href="https://www.google.co.jp/maps/dir/34.9444053,135.7026846/34.9445439,135.7039386/@34.9443852,135.703326,18.84z/data=!4m9!4m8!1m5!3m4!1m2!1d135.702861!2d34.9449064!3s0x6001043ac4aeca09:0xbba5719a915920dc!1m0!3e2">Muko-shi, Kyoto, Japan (135.703151640629,34.9447239682395)</a></span>
+							</li>
+							<li>長所:
+								<ul>
+									<li>最も良く知られたフレームワーク</li>
+								</ul>
+							</li>
+							<li>短所:
+								<ul>
+									<li>ソースが非公開</li>
+									<li>商用利用のためにはライセンス費用が必要</li>
+									<!-- <li>Can't use your own network data</li> -->
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Open Source Routing Machine (OSRM)</h3>
+						<ul>
+							<li>リンク: <a href="http://map.project-osrm.org/">http://map.project-osrm.org/</a></li>
+							<!-- <li>Project: <a href="http://project-osrm.org/">http://project-osrm.org/</a></li> -->
+							<li>ソースコード/ドキュメント:<br>
+								<span style="font-size:20pt">バックエンド: <a href="https://github.com/Project-OSRM/osrm-backend">https://github.com/Project-OSRM/osrm-backend</a></span><br>
+								<span style="font-size:20pt">フロントエンド: <a href="https://github.com/Project-OSRM/osrm-frontend">https://github.com/Project-OSRM/osrm-frontend</a></span>
+							<li>サンプル:<br>
+								<span style="font-size:20pt"><a href="http://map.project-osrm.org/?hl=ja&loc=34.944489,135.702911&loc=34.944904,135.702850&loc=34.944530,135.703583&z=18&center=34.944635,135.702205&alt=0&df=0&re=0&ly=-1171809665">Muko-shi, Kyoto, Japan (135.703151640629,34.9447239682395)</a></span>
+							</li>
+							<li>長所:
+								<ul>
+									<li>(OSM関連では)良く知られたフレームワーク</li>
+									<li>オープンソース</li>
+								</ul>
+							</li>
+							<li>短所:
+								<ul>
+									<li>バックエンドについては、ライセンスが厳しい <a href="https://opensource.org/licenses/AGPL-3.0">AGPL</a> から <a href="https://opensource.org/licenses/MIT">MIT</a> に変更されたが、フロントエンドは、まだ厳しい <a href="https://opensource.org/licenses/AGPL-3.0">AGPL</a> のまま</li>
+									<!-- <li>Can't use your own network data (except OSM)</li> -->
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Leaflet Routing Machine (LRM)</h3>
+						<ul>
+							<li>プロジェクト:<br>
+								<span style="font-size:20pt"><a href="http://www.liedman.net/leaflet-routing-machine/">http://www.liedman.net/leaflet-routing-machine/</a></span>
+							</li>
+							<li>ソースコード:<br>
+								<span style="font-size:20pt"><a href="https://github.com/perliedman/leaflet-routing-machine">https://github.com/perliedman/leaflet-routing-machine</a></span>
+							</li>
+							<li>長所:
+								<ul>
+									<li>オープンソース</li>
+									<li>ライセンスが厳しくない (<a href="https://opensource.org/licenses/ISC">ISC</a>)</li>
+									<li>複数のルート検索エンジンのサポート: OSRM (デフォルト), GraphHopper, MapBox Directions API, Mapzen Valhalla, ...</li>
+								</ul>
+							</li>
+							<li>cons:
+								<ul>
+									<li>pgRouting を用いた独自のネットワークはサポートされていない</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+				</section>
+
+				<!-- Leaflet Routing Machine (LRM) pgRouting plugin -->
+				<section>
+					<section>
+						<h2>Leaflet Routing Machine (LRM) pgRouting プラグイン</h2>
+						<ul>
+							<li>LRM プラグイン インターフェースの確認</li>
+							<li>サーバ側設計</li>
+							<li>クライアント側処理</li>
+							<li>デモ</li>
+						</ul>
+					</section>
+					<section>
+						<h3>LRM プラグイン インターフェースの確認 1/2</h3>
+						<ul>
+							<li>Tutorial / GraphHopper, Mapbox, Valhalla and other routing software / Using other routers:<br>
+								<span style="font-size:20pt"><a href="http://www.liedman.net/leaflet-routing-machine/tutorials/alternative-routers/">http://www.liedman.net/leaflet-routing-machine/tutorials/alternative-routers/</a></span>
+							</li>
+							<li>LRM の <a href="http://www.liedman.net/leaflet-routing-machine/api/#irouter">IRouter</a> インターフェースの "route" メソッドを通して、サーバ側に経由点をリクエスト<br>
+								<img width="340" data-src="./draggable_pgrouting/lrm_quick_look1.png">
+								<img width="500" data-src="./draggable_pgrouting/IRouter.png">
+							</li>
+						</ul>
+						<pre style="font-size:14pt"><code data-trim contenteditable>
+?loc=34.944479,135.702857&loc=34.944916,135.702972&loc=34.944530,135.703476
+						</code></pre>
+					</section>
+					<section>
+						<h3>LRM プラグイン インターフェースの確認 2/2</h3>
+						<ul>
+							<li>サーバからレスポンスを取得</li>
+							<li>結果をパースし、フォーマットしてから、LRM の <a href="http://www.liedman.net/leaflet-routing-machine/api/#iroute">IRoute</a> インターフェースのオブジェクトに渡す<br>
+								<img width="420" data-src="./draggable_pgrouting/lrm_quick_look2.png">
+								<img width="420" data-src="./draggable_pgrouting/IRoute.png">
+							</li>
+							<li>LRM は中継点とルート座標を地図上に描画し、要約と案内をパネルに表示</li>
+						</ul>
+					</section>
+					<section>
+						<h3>サーバ側設計 1/3</h3>
+						<ul>
+							<li>簡易のため、GeoServer WFS レイヤ (SQL ビュー) + PL/pgSQL ラッパー関数を使用</li>
+							<li>PL/pgSQL ラッパー関数は経由点をパースし、各経由点間について、"pgr_trsp" 関数を呼び出す</li>
+							<li>GeoServer は複数ジオメトリカラムのレイヤをサポートしていないので、PL/pgSQL が"点の種別"属性をマージした TRSP の結果をエッジを返すよう設計</li>
+						</ul>
+						<table style="font-size:20pt">
+							<thead>
+								<tr>
+									<th>値</th>
+									<th>意味</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!--
+								<tr>
+									<td>0</td>
+									<td>None</td>
+								<tr>
+								-->
+								<tr>
+									<td>1</td>
+									<td>エッジの開始ノードがルートの始点(出発点)</td>
+								<tr>
+								<tr>
+									<td>2</td>
+									<td>エッジの終了ノードがルートの終点(到着点)</td>
+								<tr>
+								<tr>
+									<td>4</td>
+									<td>エッジの開始ノードが経由点</td>
+								<tr>
+								<tr>
+									<td>8</td>
+									<td>エッジの終了ノードが経由点</td>
+								<tr>
+							</tbody>
+						</table>
+					</section>
+					<!-- TODO: Picture for point type explanation -->
+					<section>
+						<h3>サーバ側設計 2/3</h3>
+						<h4>- PL/pgSQL ラッパー関数 -</h4>
+						<pre style="font-size:14pt"><code data-trim contenteditable>
+CREATE OR REPLACE FUNCTION routing.viaPoints(
+        IN points text, -- Format: "Lng,Lat|Lng,Lat|..."
+        IN tbl varchar DEFAULT 'osm_2po_4pgr'::varchar, -- Edge table name
+        : -- Other default values
+        OUT seq integer,
+        OUT gid integer,
+        OUT name text, -- Road name
+        OUT heading double precision, -- Angle from edge start to edge end (not used)
+        OUT cost double precision,
+        OUT geom geometry, -- Edge geometry (ordered)
+        OUT distance double precision,
+        OUT point_type smallint -- Point type
+    )
+    RETURNS SETOF record AS
+    :
+						</code></pre>
+						<ul>
+							<li>指定された経由点の文字列をパース</li>
+							<li>各経由点の最近隣エッジとエッジ内の位置、スナップされた点座標を取得</li>
+							<li>各経由点について、"pgr_trsp" 関数を呼び出す</li>
+						</ul>
+					</section>
+					<section>
+						<h3>サーバ側設計 3/3</h3>
+						<ul>
+							<li>GeoServer SQL ビューを設定し、経由点のパラメータを PL/pgSQL ラッパー関数に渡す</li>
+						</ul>
+						<img width="700" data-src="./draggable_pgrouting/geoserver_sqlview.png">
+					</section>
+					<section>
+						<h3>クライアント側処理 1/5</h3>
+						<ul>
+							<li>経由点を "viewparams" 値として、GeoServer WFS レイヤにリクエスト</li>
+						</ul>
+						<pre style="font-size:14pt"><code data-trim contenteditable>
+options: {
+	serviceUrl: 'http://localhost:8080/geoserver/pgrouting/wfs',
+	timeout: 30 * 1000,
+	urlParameters: {
+		version: '1.0.0',
+		request: 'GetFeature',
+		outputFormat: 'application/json'
+	}
+},
+:
+						</code></pre>
+						<pre style="font-size:14pt"><code data-trim contenteditable>
+route: function(waypoints, callback, context, options) {
+	:
+	url = this.buildRouteUrl(waypoints, options);
+	:
+	corslite(url, L.bind(function(err, resp) {
+		:
+						</code></pre>
+					</section>
+					<section>
+						<h3>クライアント側処理 2/5</h3>
+						<pre style="font-size:14pt"><code data-trim contenteditable>
+buildRouteUrl: function(waypoints, options) {
+	var points = [],
+		i,
+		baseUrl;
+	
+	for (i = 0; i < waypoints.length; i++) {
+		points.push(waypoints[i].latLng.lng + '\\,' + waypoints[i].latLng.lat);
+	}
+
+	baseUrl = this.options.serviceUrl + L.Util.getParamString(L.extend({
+			typeName: this._typeName,
+			viewparams: 'points:' + points.join('|')
+		}, this.options.urlParameters), baseUrl);
+
+	return baseUrl;
+},
+						</code></pre>
+					</section>
+					<section>
+						<h3>クライアント側処理 3/5</h3>
+						<ul>
+							<li>GeoServer WFS レイヤからレスポンスを取得</li>
+						</ul>
+						<pre style="font-size:14pt"><code data-trim contenteditable>
+route: function(waypoints, callback, context, options) {
+	:
+	corslite(url, L.bind(function(err, resp) {
+		:
+		if (!timedOut) {
+			if (!err) {
+				data = JSON.parse(resp.responseText);
+				this._routeDone(data, wps, callback, context);
+				:
+						</code></pre>
+					</section>
+					<section>
+						<h3>クライアント側処理 4/5</h3>
+						<pre style="font-size:14pt"><code data-trim contenteditable>
+_routeDone: function(response, inputWaypoints, callback, context) {
+	var alts = [],
+	:
+	for (i = 0; i < response.features.length; i++) {
+		feature = response.features[i];
+		edgeCoords = this._coordsToLatLngs(feature.geometry.coordinates);
+		if ((feature.properties.pointType & 1) || (feature.properties.pointType & 4)) {
+			viaCoords.push(edgeCoords[0]);
+			viaIndices.push(routeCoords.length);
+		}
+		if (feature.properties.pointType & 2) {
+			viaCoords.push(edgeCoords[edgeCoords.length - 1]);
+			viaIndices.push(routeCoords.length + edgeCoords.length - 1);
+		}
+		instructions = instructions.concat(this._convertInstructions(feature.properties, routeCoords, edgeCoords));
+		routeCoords = routeCoords.concat(edgeCoords);
+		totalDistance += feature.properties.distance;
+		totalTime += feature.properties.cost * 3600;
+	}
+
+	actualWaypoints = this._toWaypoints(inputWaypoints, viaCoords);
+
+	alts.push({
+		name: '',
+		coordinates: routeCoords,
+		instructions: instructions,
+		summary: {
+			totalDistance: totalDistance,
+			totalTime: Math.round(totalTime)
+		},
+		inputWaypoints: inputWaypoints,
+		waypoints: actualWaypoints,
+		waypointIndices: viaIndices
+	});
+
+	callback.call(context, null, alts);
+},
+						</code></pre>
+					</section>
+					<section>
+						<h3>クライアント側処理 5/5</h3>
+						<ul>
+							<li>結果のルートと経由点が地図上に描画される</li>
+							<li>結果の要約と案内がパネルに表示される</li>
+						</ul>
+						<img width="540" data-src="./draggable_pgrouting/lrm-pgrouting_clipped.png">
+					</section>
+					<section>
+						<h2>デモ</h2>
+					</section>
+					<section>
+						<h3>リソース</h3>
+						<ul>
+							<li>GitHub リポジトリ:<br>
+								<a href="https://github.com/sanak/lrm-pgrouting">https://github.com/sanak/lrm-pgrouting</a>
+							</li>
+							<li>サンプルデータ:
+								<ul>
+									<li>元データ: OpenStreetMap (*.osm)</li>
+									<li>場所: 京都府向日市</li>
+									<li>pgRouting エッジテーブルへの変換には、<a href="http://osm2po.de/">osm2po</a> を使用</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+				</section>
+
+				<!-- Future plans -->
+				<section>
+					<section>
+						<h2>今後の課題</h2>
+						<ul>
+							<li>さらなる単純化とテスト</li>
+							<li>OL3 カスタムインタラクションの開発</li>
+							<li>QGIS Python プラグインの開発</li>
+						</ul>
+					</section>
+					<section>
+						<h2>さらなる単純化とテスト</h2>
+						<ul>
+							<li>現在の実装は、"osm2po" で変換したエッジテーブルのスキーマに依存しているため、さらなる一般化が必要</li>
+							<li>現状、"instructions" の内容はクライアント側で構築しているが、ロジックをサーバ側の PL/pgSQL に移動した方が良いかもしれない</li>
+							<li>現状、小さいデータセットでのみテストしているため、より大きいデータセットでのテストが必要</li>
+						</ul>
+					</section>
+					<section>
+						<h2>OL3 カスタムインタラクションの開発</h2>
+						<ul>
+							<li>LRM 自体を "OL3 Routing Machine (ORM)" のような、OL3 のカスタムインタラクションに移植</li>
+							<li>LRM pgRouting プラグインを、OL3 のクラスに移植</li>
+						</ul>
+					</section>
+					<section>
+						<h2>QGIS Python プラグインの開発</h2>
+						<ul>
+							<li>LRM 自体を "QGIS Routing Machine (QRM)" のような QGIS Python プラグインに移植</li>
+							<li>LRM pgRouting プラグインを Python のクラスに移植</li>
+							<li>可能であれば、"QGIS Python プラグイン" から "PL/pgSQL ラッパー関数" への直接のアクセスを検討</li>
+						</ul>
+					</section>
+				</section>
+				
+				<!-- Last page -->
+				<section>
+					<section>
+						<h2>まとめ</h2>
+						<ul>
+							<li>Leaflet Routing Machine (LRM) の pgRouting プラグインを作成することで、クライアント側でドラッグ可能なルート選択を実現することができた</li>
+							<li>さらなる一般化を行うことで、pgRouting であることの強みを活かし、道路ネットワーク以外のネットワークデータ(インドアマッピングなど)にも適用できるかもしれない</li>
+							<li>OL3 カスタムインタラクションや、 QGIS Python プラグインに移植できれば、さらに面白いかもしれない</li>
+						</ul>
+					</section>
+					<section>
+						<h2>ご静聴ありがとうございました</h2>
+						<ul>
+							<li>Email: <a href="nagase@georepublic.co.jp">nagase@georepublic.co.jp</a></li>
+							<li>GitHub アカウント: <a href="https://github.com/sanak">https://github.com/sanak</a></li>
+						</ul>
+					</section>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../lib/js/head.min.js"></script>
+		<script src="../js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../plugin/zoom-js/zoom.js', async: true },
+					{ src: '../plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
